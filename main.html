@@ -11,17 +11,50 @@
         
         <link rel="stylesheet" href="static/style.css">
 
-        <title id="BlindEvaluationTitle"> Image Segmentation Bliend Evaluator</title>
+        <title id="BlindEvaluationTitle"> Image Segmentation Blind Evaluator</title>
 
     </head>
 
     <body>
 
-        <div class="image_wrapper">
-            <img src="./data/green/images/RC147_dicom.png" class="main_image">
-            <img src="./data/green/labels/mask.png" class="overlay_image" id="greenOverlay">
+        <!-- this page is composed by two part: One to load all the required files. One to evaluate the segmentations-->
+
+        <!-- File loader part-->
+
+        <div class="image_wrapper" id="uploadPage">
+            <!--Place the hidden inputs to pick the files-->
+            <input type="file" id="imagePicker" name="fileList" webkitdirectory multiple style="display: none" ; />
+            <input type="file" id="bluePicker" name="fileList" webkitdirectory multiple style="display: none" ; />
+            <input type="file" id="greenPicker" name="fileList" webkitdirectory multiple style="display: none" ; />
+
+            <button type="button" class="hide_button" id="uploadImage" style="top:50px">Upload Image</button>
+            <button type="button" class="hide_button"  id="uploadBlue" style="top:100px;">Upload Blue Segmentation</button>
+            <button type="button" class="hide_button"  id="uploadGreen" style="top:150px;">Upload Green Segmentation</button>
+
+            <!--Button to confirm the selection-->
+            <button type="button" class="hide_button" id="confirmButton" style="top:250px;" onclick="confirmUploadDirectories()">Confirm</button>
+
+        </div>
+
+        <div class="image_wrapper" style="display: none;" id="evaluationPage">
+            <!-- Green Image with tools to set label preferences-->
+            <img src="./data/images/RC147_dicom.png" class="main_image" id="mainImage">
+            <img src="./data/green/mask.png" class="overlay_image" id="greenOverlay">
             <button type="button" class="hide_button" id="hideGreenImage">Hide Label</button>
             <input type="range" min="1" max="100" value="100" class="slider" id="greenOpacity" >
+            <button type="button" id="betterGreen" class="hide_button" style="top:700px">Green is Better</button>
+
+            <!--Button to specify that no segmentation is better than the other-->
+            
+
+            <!--Blue Image with Tools to Set Label Prefereces-->
+            <img src="./data/images/RC147_dicom.png" class="main_image" style="left: 800px;">
+            <img src="./data/blue/mask.png" class="overlay_image" id="blueOverlay" style="left: 800px;">
+            <button type="button" class="hide_button" id="hideBlueImage" style="left: 800px;">Hide Label</button>
+            <input type="range" min="1" max="100" value="100" class="slider" id="blueOpacity" style="left: 800px;">
+            <button type="button" id="betterBlue" class="hide_button" style="top:700px; left: 800px">Blue is Better</button>
+
+
         </div>
     </body>
 
