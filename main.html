@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <script type="text/javascript" defer src="static/functions.js"></script>
+        <script type="text/javascript" defer src="static/jquery.js"></script>
+        
+        <link rel="stylesheet" href="static/style.css">
+
+        <title id="BlindEvaluationTitle"> Image Segmentation Bliend Evaluator</title>
+
+    </head>
+
+    <body>
+
+        <div class="image_wrapper">
+            <img src="./data/green/images/RC147_dicom.png" class="main_image">
+            <img src="./data/green/labels/mask.png" class="overlay_image" id="greenOverlay">
+            <button type="button" class="hide_button" id="hideGreenImage">Hide Label</button>
+            <input type="range" min="1" max="100" value="100" class="slider" id="greenOpacity" >
+        </div>
+    </body>
+
+</html>

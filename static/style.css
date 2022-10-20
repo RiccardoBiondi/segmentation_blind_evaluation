@@ -1,0 +1,33 @@
+.image_wrapper{
+    position: relative;
+}
+
+.main_image {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+
+.overlay_image{
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 1;
+
+}
+
+.hide_button{
+    position: absolute;
+    top: 600px;
+    left: 25px;
+    width: 512px;
+    height: 50px;
+    font-size: 25px;
+}
+
+.slider{
+    position: absolute;
+    top:575px;
+    left:25px;
+    width: 512px;
+}
