@@ -30,9 +30,35 @@ html {
     font-size: 25px;
 }
 
+
+.upload_buttons{
+    position: absolute;
+    left: 25px;
+    width: 768px;
+    height: 128px;
+    font-size: 50px;
+}
+
 .slider{
     position: absolute;
     top:575px;
     left:25px;
     width: 512px;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
 }
