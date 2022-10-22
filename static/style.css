@@ -1,24 +1,44 @@
+*{
+    font-family: 'Titillium Web', sans-serif;
+    transition: all .2s ease;
+}
+
 html {
     overflow: hidden;
 }
 
+body {
+    margin: 5px;
+    transition: baground-color 0.5s;
+}
 
-.image_wrapper{
+.container {
     position: relative;
+    background-color: #111;
+    /* Black*/
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 80%;
+    background-color: black;
+    border: 1px solid #000;
+    color: white;
+    transition: 0.5s;
 }
 
 .main_image {
     position: absolute;
-    top: 25px;
-    left: 25px;
+    display: block;
+    top: 0px;
+    left: 0px;
 }
 
 .overlay_image{
     position: absolute;
-    top: 25px;
-    left: 25px;
+    display: block;
+    top: 0px;
+    left: 0px;
     z-index: 1;
-
 }
 
 .hide_button{
@@ -29,7 +49,6 @@ html {
     height: 50px;
     font-size: 25px;
 }
-
 
 .upload_buttons{
     position: absolute;
@@ -44,6 +63,23 @@ html {
     top:575px;
     left:25px;
     width: 512px;
+}
+
+/* Upper grid of images */
+div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* Style the images inside the grid */
+div.scrollmenu img {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+div.scrollmenu img:hover {
+    opacity: 1;
 }
 
 /* Next & previous buttons */

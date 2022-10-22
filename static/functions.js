@@ -16,7 +16,6 @@ var responses = {};
 // counter to keep track of the current image to display. 
 let currentSlideIndex = 0;
 
-
 function loadFiles(filePickerId, dest, buttonId){
 
     let filePicker = document.getElementById(filePickerId);
@@ -36,7 +35,6 @@ function loadFiles(filePickerId, dest, buttonId){
     
 };
 
-
 function changeVisibility(imageId, buttonId) {
 
     let image = document.getElementById(imageId);
@@ -52,8 +50,7 @@ function changeVisibility(imageId, buttonId) {
         image.style.visibility = "hidden";
         button.innerHTML = 'Reveal Label';
     }
-}
-
+};
 
 function setChoice(responseId){
 
@@ -63,9 +60,8 @@ function setChoice(responseId){
     // Update the global dictionary
     responses[filename + currentSlideIndex] = responseId;
     // Print message box
-    console.log(responses)
-}
-
+    console.log(responses);
+};
 
 function confirmUploadDirectories(){
     
@@ -81,9 +77,14 @@ function confirmUploadDirectories(){
         let evaluationPage = document.getElementById("evaluationPage");
 
         uploadPage.style.display = "none";
-        evaluationPage.style.display  = "initial";
+        evaluationPage.style.display  = "flex";
 
         // show the first slide
+        for (link of imageSrcs) {
+            document.getElementById('list').innerHTML += `
+                <img src="./data/${link}" id="${link}" title="${link}" style="width:100px; height: 100px" onclick=Enlarge(this); />
+                `;
+        }
         showCurrentSlide(currentSlideIndex);
     } else {
 
@@ -93,21 +94,21 @@ function confirmUploadDirectories(){
     }
 
  
-}
-
+};
 
 function showImage(src, id){
     /*Function to show an image specifying the src */ 
     let image = document.getElementById(id);
     image.src = './data/' + src;
-}
+    image.parentElement.style.display = "block";
+};
 
 function showCurrentSlide(n){
     /* Function to show the current image to evaluate*/
 
     // Force the wrap around
-    if (n > imageSrcs.length - 1) { currentSlideIndex = 0 }
-    if (n < 0) { currentSlideIndex = imageSrcs.length - 1 }
+    if (n > imageSrcs.length - 1) { currentSlideIndex = 0 };
+    if (n < 0) { currentSlideIndex = imageSrcs.length - 1 };
 
     // now show the images
 
@@ -116,14 +117,14 @@ function showCurrentSlide(n){
     showImage(greenSrcs[currentSlideIndex], 'greenOverlay');
     showImage(blueSrcs[currentSlideIndex], 'blueOverlay');
 
-}
+};
 
 // Function to move torugh the images
 function moveImage(step){
 
     currentSlideIndex += step;
     showCurrentSlide(currentSlideIndex);
-}
+};
 // Callbacks to upload the images
 
 
@@ -134,6 +135,7 @@ document.getElementById("uploadGreen").addEventListener('click', function () { l
 //document.getElementById("confirmButton").addEventListener('click', confirmUploadDirectories());
 
 // change the visibility of the green image overlay when click the correct button
+/*
 document.getElementById("hideGreenImage").addEventListener("click", function () { changeVisibility("greenOverlay", "hideGreenImage")});
 document.getElementById("hideBlueImage").addEventListener("click", function () { changeVisibility("blueOverlay", "hideBlueImage") });
 
@@ -152,12 +154,12 @@ blueSlider.oninput = function () {
     let blueOverlay = document.getElementById("blueOverlay");
     blueOverlay.style.opacity = this.value / 100;
 }
-
+*/
 
 // add the callback for the preference
 document.getElementById("betterBlue").addEventListener("click", function(){setChoice(BLUE_BETTER)});
 document.getElementById("betterGreen").addEventListener("click", function () { setChoice(GREEN_BETTER)});
-
+document.getElementById("noneBetter").addEventListener("click", function () { setChoice(NO_BETTER)});
 
 // Add keybord shortcut
 
