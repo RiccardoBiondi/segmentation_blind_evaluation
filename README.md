@@ -11,12 +11,9 @@ A simple program to evaluate two different segmentation approches one against th
 
 ## Usage
 
-
-
 ## Interface
 
 ## License
-
 
 ## Contribution
 
@@ -26,3 +23,8 @@ Current TODO list:
 - Add a nifti loader
 - Improve html layout
 - Improve Documentation
+- Lazy Loading for the image navigation bar
+- Magnifier Lens
+- Brightness and Contrast control
+- Highight images in the selection bar
+- Test the program on other browsers
