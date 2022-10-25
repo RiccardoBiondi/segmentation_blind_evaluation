@@ -29,22 +29,22 @@ body {
 .main_image {
     position: absolute;
     display: block;
-    top: 0px;
-    left: 0px;
+    top: 75px;
+    left: 150px;
 }
 
 .overlay_image{
     position: absolute;
     display: block;
-    top: 0px;
-    left: 0px;
+    top: 75px;
+    left: 150px;
     z-index: 1;
 }
 
 .hide_button{
     position: absolute;
     top: 600px;
-    left: 25px;
+    left: 150px;
     width: 512px;
     height: 50px;
     font-size: 25px;
@@ -97,4 +97,21 @@ div.scrollmenu img:hover {
     border-radius: 0 3px 3px 0;
     user-select: none;
     -webkit-user-select: none;
+}
+
+/* Blue button style */
+.blue {
+    background-color : rgba(0, 100, 200, 1);
+}
+
+.green {
+    background-color: rgba(0, 200, 100, 1);
+}
+
+.blue:hover {
+    background-color: rgba(0, 155, 255, 1);
+}
+
+.green:hover {
+    background-color: rgba(0, 255, 155, 1);
 }
