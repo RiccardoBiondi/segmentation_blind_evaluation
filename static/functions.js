@@ -5,6 +5,7 @@ const GREEN_BETTER = "green";
 const BLUE_BETTER = "blue";
 const NO_BETTER = "none";
 const OUTNAME = "responses_" + now.toLocaleDateString() + ".csv"
+const BORDER_HIGHLIGHT = "0px 0px 10px 10px gold" // control the border to highligh the selection
 
 // define the constants to store the links to the input images and labels
 const imageSrcs = [];
@@ -17,11 +18,15 @@ var responses = {};
 // counter to keep track of the current image to display. 
 let currentSlideIndex = 0;
 
+// useful variable fot the lazy loading
+let start = 0;
+let stop = Math.floor((0.9 * window.screen.availWidth) * window.devicePixelRatio * .01);
+const initial_stop = stop; // initial stop value as fixed
+const initial_start = start; // initial start value as fixed
+
 
 // Main Images
 
-//var img1 = document.getElementById("mainImage");
-//var img2 = document.getElementById("mainImageBis");
 
 
 function loadFiles(filePickerId, dest, buttonId){
@@ -31,7 +36,6 @@ function loadFiles(filePickerId, dest, buttonId){
     filePicker.click();
     filePicker.addEventListener('change', function(event){
     let files = event.target.files;
-
     // append it to the global LINKS array
     for (let i = 0; i < files.length; i++) {
         dest.push(files[i].webkitRelativePath);
@@ -95,13 +99,15 @@ function confirmUploadDirectories(){
         document.getElementById("evaluationPage").style.display = "flex";
 
         // set innerHTML to empty string to avoid the possibility to display the same images multiple times
-        document.getElementById('list').innerHTML = "";
-        for (const link of imageSrcs) {
+        /*document.getElementById('list').innerHTML = "";
+
+        for (let idx in imageSrcs) {
+            const link = imageSrcs[idx];
             document.getElementById('list').innerHTML += `
                 <img src="./data/${link}" id="${link}" title="${link}" style="width:100px; height: 100px;"/>
                 `;
         }
-
+        */
         showCurrentSlide(currentSlideIndex);
     } else {
 
@@ -132,7 +138,7 @@ function showCurrentSlide(n){
     showImage(imageSrcs[currentSlideIndex], 'mainImageBis');
     showImage(greenSrcs[currentSlideIndex], 'greenOverlay');
     showImage(blueSrcs[currentSlideIndex], 'blueOverlay');
-
+    highlightPreference(currentSlideIndex);
     // upload the image current
     document.getElementById("imageCounter").innerHTML = "Image " + (currentSlideIndex + 1) + "/" + imageSrcs.length;
 }; 
@@ -142,7 +148,7 @@ function moveImage(step){
 
     currentSlideIndex += step;
     showCurrentSlide(currentSlideIndex);
-    highlightPreference(currentSlideIndex);
+  
 
     // add function to highlight the selection on the list bar
 };
@@ -152,23 +158,21 @@ function highlightPreference(slideNumber){
 
     // slide number is the number of the current slice
     // if you have expressed a preference, this will be hightlighted during the visualization
-    console.log('Hello');
-    console.log(responses);
     if (responses[slideNumber] === BLUE_BETTER){
 
         console.log(BLUE_BETTER);
         // set the margin of the green image to the default values
         document.getElementById("mainImage").style.boxShadow = "none"
-        document.getElementById("mainImageBis").style.boxShadow =  "10px 10px 10px 10px rgb(201, 199, 131)"
+        document.getElementById("mainImageBis").style.boxShadow =  BORDER_HIGHLIGHT
     } else if (responses[slideNumber] === GREEN_BETTER){
         console.log(GREEN_BETTER);
         // set the margin of the blue image to the default values
         document.getElementById("mainImageBis").style.boxShadow = "none"
-        document.getElementById("mainImage").style.boxShadow = "10px 10px 10px 10px rgb(201, 199, 131)"
+        document.getElementById("mainImage").style.boxShadow = BORDER_HIGHLIGHT
 
     } else if (responses[slideNumber] === NO_BETTER){
-        document.getElementById("mainImageBis").style.boxShadow = "10px 10px 10px 10px rgb(201, 199, 131)"
-        document.getElementById("mainImage").style.boxShadow = "10px 10px 10px 10px rgb(201, 199, 131)"
+        document.getElementById("mainImageBis").style.boxShadow = BORDER_HIGHLIGHT
+        document.getElementById("mainImage").style.boxShadow = BORDER_HIGHLIGHT
     }
 
     else {
@@ -205,7 +209,6 @@ function downloadResults(){
             textToSave += index + ',' + MISSING_VALUE + '\n';
         }
     }
-    console.log(textToSave);
 
     // append the file content
     hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
@@ -238,6 +241,7 @@ opacitySlider.oninput = function(){
     greenOverlay.style.opacity = this.value / 100;
     blueOverlay.style.opacity = this.value / 100;
 }
+
 /*
 contrastSlider.oninput = function(){
 
@@ -299,6 +303,4 @@ document.addEventListener('keydown', (event) => {
     }
 }, false);
 
-
 document.getElementById("downloadButton").addEventListener("click", downloadResults);
-
