@@ -20,75 +20,63 @@
         <!-- this page is composed by two part: One to load all the required files. One to evaluate the segmentations-->
 
         <!-- File loader part-->
+
         <!-- Hidden downloader of resulting file -->
         <iframe id="download_iframe" target="_blanck" style="display:none;"></iframe>
 
-        <input type="file" id="imagePicker" name="fileList" webkitdirectory multiple style="display: none" ; />
-        <input type="file" id="bluePicker" name="fileList" webkitdirectory multiple style="display: none" ; />
-        <input type="file" id="greenPicker" name="fileList" webkitdirectory multiple style="display: none" ; />
+        <!--Hidden image picker to upload the resulting files-->
+        <input type="file" id="imagePicker" name="fileList" webkitdirectory multiple style="display: none"; />
+        <input type="file" id="bluePicker" name="fileList" webkitdirectory multiple style="display: none"; />
+        <input type="file" id="greenPicker" name="fileList" webkitdirectory multiple style="display: none"; />
 
-        <div class="container" id="uploadPage" style="display: flex;">
+        <div class="center initial_page" id="uploadPage" style="display: flex;">
 
+            <!--Help Icon: click will dispay the  help message for the -->
+            <div class="help">
+                <div class="question">?</div>
+            </div>
             <!--Place the hidden inputs to pick the files-->
-            <button type="button" class="upload_buttons" id="uploadImage" style="top:50px">Upload Image</button>
-            <button type="button" class="upload_buttons blue"  id="uploadBlue" style="top:200px;">Upload Blue Segmentation</button>
-            <button type="button" class="upload_buttons green"  id="uploadGreen" style="top:350px;">Upload Green Segmentation</button>
-
+            <button type="button" class="center yellow" id="uploadImage" >Upload Images</button>
+            <button type="button" class="center blue" id="uploadBlue">Upload Blue Batch</button>
+            <button type="button" class="center green" id="uploadGreen">Upload Green Batch</button>
             <!--Button to confirm the selection-->
-            <button type="button" class="upload_buttons" id="confirmButton" style="top:500px;" onclick="confirmUploadDirectories()">Confirm Selection</button>
+            <button type="button" class="center" id="confirmButton" onclick="confirmUploadDirectories()">Confirm Selection</button>
         </div>
 
-        <div class="scrollmenu" id='list'></div>
-        <div class="container" style="display: none;" id="evaluationPage">
-
-            <!--Button to Download the results and to get help-->
+        <div id="evaluationPage" class="container" style="display: none;">
+    
+        <!--Button to Download the results and to get help-->
             <button type="button" id="downloadButton" class="hide_button" style="top: 0px; left:0px; width:150px;"> Download</button>>
-
-            <!-- Green Image with tools to set label preferences-->        
+    
+            <!-- Green Image with tools to set label preferences-->
             <img class="main_image" id="mainImage" style="border: 10px solid rgba(0, 200, 100, 1);">
             <img class="overlay_image" id="greenOverlay" style="border: 10px solid rgba(0, 200, 100, 1);">
-
+    
             <!--Blue Image with Tools to Set Label Prefereces-->
             <img class="main_image" id="mainImageBis" style="left: 800px; border: 10px solid  rgba(0, 100, 200, 1);">
-            <img class="overlay_image"id="blueOverlay" style="left: 800px; border: 10px solid  rgba(0, 100, 200, 1);">
-
+            <img class="overlay_image" id="blueOverlay" style="left: 800px; border: 10px solid  rgba(0, 100, 200, 1);">
+    
             <!-- Button to chose which segmebtation is better-->
             <button type="button" id="betterGreen" class="hide_button green" style="top:700px;">Green is Better</button>
             <button type="button" id="noneBetter" class="hide_button" style="top:700px; left:665px; width: 250px;">None is Better</button>
             <button type="button" id="betterBlue" class="hide_button blue" style="top:700px; left: 925px;">Blue is Better</button>
-            <!--
-            <button type="button" class="hide_button" id="hideBlueImage" style="left: 800px;">Hide Label</button>
-            <input type="range" min="1" max="100" value="100" class="slider" id="blueOpacity" style="left: 800px;">
-            
-            -->
 
-            <!--Now the part to control the properties of the iamges and overlays:
-                - hide overlays (button)
-                - change overlay opacity (slider)
-                - change image brigthness (slider) // TDO
-                - change image contrast (slider)  // TODO
-                - reset default image properties (button) // TODO -->
+        <!--Now the part to control the properties of the iamges and overlays:
+                    - hide overlays (button)
+                    - change overlay opacity (slider)
+                    - change image brigthness (slider) // TDO
+                    - change image contrast (slider)  // TODO
+                    - reset default image properties (button) // TODO -->
             <button type="button" id="hideButton" class="hide_button" style="top: 100px; left: 1500px;">Hide Label</button>
-
+    
             <label for="setOpacity" style="top:175px; left:1500px;">Label Opacity:</label>
             <input type="range" min="1" max="100" value="100" class="slider" id="setOpacity" style="top: 200px; left: 1500px">
-
-            <!--
-            <label for="setContrast" style="top:225px; left:1500px;">Contrast:</label><br>
-            <input type="range" min="1" max="200" value="100" class="slider" id="setContrast" style="top: 250px; left: 1500px" >
-            <label for="setBrightness" style="top:275px; left:1500px;">Brightness:</label><br>
-            <input type="range" min="1" max="200" value="100" class="slider" id="setBrightness" style="top: 300px; left: 1500px">
-
-            <button type="button" id="resetButton" class="hide_button" style="top: 400px; left: 1500px;"> Reset </button>
-            -->
-
+        
             <!--Add an Image Counter-->
             <span style="color: black; position: absolute; left: 1500px; top: 700px; font-size: 32px" id="imageCounter"></span>
             <!--Add a Conter to Know the number of evaluated images-->
             <span style="color:black; position: absolute; left: 1500px; top: 750px; font-size: 32px" id="evaluationCounter">Evaluated</span>
- 
 
-ì        </div>
     </body>
 
 </html>
