@@ -29,11 +29,17 @@
         <input type="file" id="bluePicker" name="fileList" webkitdirectory multiple style="display: none"; />
         <input type="file" id="greenPicker" name="fileList" webkitdirectory multiple style="display: none"; />
 
-        <div class="center initial_page" id="uploadPage" style="display: flex;">
+        <div class="center main_page" id="uploadPage" style="display: none;">
 
             <!--Help Icon: click will dispay the  help message for the -->
-            <div class="help">
+            <div class="help" id="help">
                 <div class="question">?</div>
+                <span class="helpmessage" id="helpMessage">
+                    Upload the required files from the data directory; then confirm the selection. 
+                    Images will be the base images. 
+                    Green and Blue batch must contains the segmentation to match. Notice that the segmentation to evaluate must be mixed trough the 
+                    different batches.
+                </span>
             </div>
             <!--Place the hidden inputs to pick the files-->
             <button type="button" class="center yellow" id="uploadImage" >Upload Images</button>
@@ -43,39 +49,36 @@
             <button type="button" class="center" id="confirmButton" onclick="confirmUploadDirectories()">Confirm Selection</button>
         </div>
 
-        <div id="evaluationPage" class="container" style="display: none;">
-    
-        <!--Button to Download the results and to get help-->
-            <button type="button" id="downloadButton" class="hide_button" style="top: 0px; left:0px; width:150px;"> Download</button>>
-    
-            <!-- Green Image with tools to set label preferences-->
-            <img class="main_image" id="mainImage" style="border: 10px solid rgba(0, 200, 100, 1);">
-            <img class="overlay_image" id="greenOverlay" style="border: 10px solid rgba(0, 200, 100, 1);">
-    
-            <!--Blue Image with Tools to Set Label Prefereces-->
-            <img class="main_image" id="mainImageBis" style="left: 800px; border: 10px solid  rgba(0, 100, 200, 1);">
-            <img class="overlay_image" id="blueOverlay" style="left: 800px; border: 10px solid  rgba(0, 100, 200, 1);">
-    
-            <!-- Button to chose which segmebtation is better-->
-            <button type="button" id="betterGreen" class="hide_button green" style="top:700px;">Green is Better</button>
-            <button type="button" id="noneBetter" class="hide_button" style="top:700px; left:665px; width: 250px;">None is Better</button>
-            <button type="button" id="betterBlue" class="hide_button blue" style="top:700px; left: 925px;">Blue is Better</button>
+        <!-------------------------------------------------------------------------------------------------------------------------
+                START THE EVALUATION PAGE
+        -------------------------------------------------------------------------------------------------------------------------->
 
-        <!--Now the part to control the properties of the iamges and overlays:
-                    - hide overlays (button)
-                    - change overlay opacity (slider)
-                    - change image brigthness (slider) // TDO
-                    - change image contrast (slider)  // TODO
-                    - reset default image properties (button) // TODO -->
-            <button type="button" id="hideButton" class="hide_button" style="top: 100px; left: 1500px;">Hide Label</button>
+        <div class="main_page" id="evaluationPage" style="display: flex;">
+
     
-            <label for="setOpacity" style="top:175px; left:1500px;">Label Opacity:</label>
-            <input type="range" min="1" max="100" value="100" class="slider" id="setOpacity" style="top: 200px; left: 1500px">
-        
-            <!--Add an Image Counter-->
-            <span style="color: black; position: absolute; left: 1500px; top: 700px; font-size: 32px" id="imageCounter"></span>
-            <!--Add a Conter to Know the number of evaluated images-->
-            <span style="color:black; position: absolute; left: 1500px; top: 750px; font-size: 32px" id="evaluationCounter">Evaluated</span>
+        <!--
+            Button to choose which image is better
+        -->
+            <div class="center container">
+                 <div class="column">
+                    <img src="./data/images/D0062_012.png">
+                </div>
+                <div class="column">
+                    <img src="./data/images/D0062_012.png">
+                </div>
+                <div class="column" style="flex-direction: column;">
+                    <button id="hideButton"> Hide Label </button>
+                    <input type="range" min="0" max="100" id="setOpacity"><input>
+                    <!--Here will be all the required panels to set the options for the image viewer -->
+                </div>
+            </div>
+
+            <div class="container">
+                <button id="betterGreen" class="green">Green is Better</button>
+                <button id="noneBetter" class="yellow">None is Better</button>
+                <button id="betterBlue" class="blue">Blue is Better</button>
+            </div>
+        </div>
 
     </body>
 
