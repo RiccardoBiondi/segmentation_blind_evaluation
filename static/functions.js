@@ -18,16 +18,6 @@ var responses = {};
 // counter to keep track of the current image to display. 
 let currentSlideIndex = 0;
 
-// useful variable fot the lazy loading
-let start = 0;
-let stop = Math.floor((0.9 * window.screen.availWidth) * window.devicePixelRatio * .01);
-const initial_stop = stop; // initial stop value as fixed
-const initial_start = start; // initial start value as fixed
-
-
-// Main Images
-
-
 
 function loadFiles(filePickerId, dest, buttonId){
 
@@ -40,13 +30,11 @@ function loadFiles(filePickerId, dest, buttonId){
     for (let i = 0; i < files.length; i++) {
         dest.push(files[i].webkitRelativePath);
         };
-    
+        // change the text on the button to notify the folder selection
         clickedButton.innerHTML = "Uploaded " + files.length + " files from: " + files[0].webkitRelativePath.split('/')[0];
     });
-
-    // change the text on the button to notify the folder selection
-    
 };
+
 
 function changeVisibility() {
 
@@ -70,6 +58,7 @@ function changeVisibility() {
     }
 };
 
+
 function setChoice(responseId){
 
     var current = document.getElementById('mainImage');
@@ -77,46 +66,33 @@ function setChoice(responseId){
 
     // Update the global dictionary
     responses[filename + currentSlideIndex] = responseId;
-    // Print message box
 
-    document.getElementById("evaluationCounter").innerHTML = "Evaluated: " + Object.keys(responses).length + "/" + imageSrcs.length;
+    //document.getElementById("evaluationCounter").innerHTML = "Evaluated: " + Object.keys(responses).length + "/" + imageSrcs.length;
     highlightPreference(currentSlideIndex);
 };
 
-function confirmUploadDirectories(){
-    
 
-    // Ensure thet ypu have specified all the directories paths
+function confirmUploadDirectories(){
+
+    // Ensure thet yOu have specified all the directories paths
     if (imageSrcs.lengt == 0 || blueSrcs.length == 0 || greenSrcs.length == 0){
 
         alert("Pelase specify all the required directories");
-    }
-    // if all directories contains the same number of images you can proceed with the analysis
-    else if (imageSrcs.length == blueSrcs.length && imageSrcs.length == greenSrcs.length ){
-        
+    } else if (imageSrcs.length == blueSrcs.length && imageSrcs.length == greenSrcs.length ){
+        // if all directories contains the same number of images you can proceed with the analysis
+
         // hide the upload page and reveal the evaluation one
         document.getElementById("uploadPage").style.display = "none";
         document.getElementById("evaluationPage").style.display = "flex";
-
-        // set innerHTML to empty string to avoid the possibility to display the same images multiple times
-        /*document.getElementById('list').innerHTML = "";
-
-        for (let idx in imageSrcs) {
-            const link = imageSrcs[idx];
-            document.getElementById('list').innerHTML += `
-                <img src="./data/${link}" id="${link}" title="${link}" style="width:100px; height: 100px;"/>
-                `;
-        }
-        */
         showCurrentSlide(currentSlideIndex);
-    } else {
 
-        // if different number of images display an alert message
+    } else {
+        // Display an alert message if you have chose folders with different number
+        // of images
         alert("All the folders must contains the same number of images");
     }
-
- 
 };
+
 
 function showImage(src, id){
     /*Function to show an image specifying the src */ 
@@ -124,6 +100,7 @@ function showImage(src, id){
     image.src = './data/' + src;
     image.parentElement.style.display = "block";
 };
+
 
 function showCurrentSlide(n){
     /* Function to show the current image to evaluate*/
@@ -133,26 +110,26 @@ function showCurrentSlide(n){
     if (n < 0) { currentSlideIndex = imageSrcs.length - 1 };
 
     // now show the images
-
     showImage(imageSrcs[currentSlideIndex], 'mainImage');
     showImage(imageSrcs[currentSlideIndex], 'mainImageBis');
     showImage(greenSrcs[currentSlideIndex], 'greenOverlay');
     showImage(blueSrcs[currentSlideIndex], 'blueOverlay');
     highlightPreference(currentSlideIndex);
     // upload the image current
-    document.getElementById("imageCounter").innerHTML = "Image " + (currentSlideIndex + 1) + "/" + imageSrcs.length;
+    //document.getElementById("imageCounter").innerHTML = "Image " + (currentSlideIndex + 1) + "/" + imageSrcs.length;
 }; 
 
-// Function to move torugh the images
+
+
 function moveImage(step){
+    // Function to move torugh the images
 
     currentSlideIndex += step;
     showCurrentSlide(currentSlideIndex);
-  
 
-    // add function to highlight the selection on the list bar
+    //TODO: add function to highlight the selection on the list bar
 };
-// Callbacks to upload the images
+
 
 function highlightPreference(slideNumber){
 
@@ -214,21 +191,30 @@ function downloadResults(){
     hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
     // trigger a click
     hiddenElement.click();
-
-
 }
+
+
+/*********************************************************************************
+ *            START THE CALLBACKS TO MANAGE THE IONTERACTION WITH THE PAGE       *
+ *********************************************************************************/
+
+// SESSION TO UPLOAD THE IMAGES
 
 document.getElementById("uploadImage").addEventListener('click', function () { loadFiles("imagePicker", imageSrcs, "uploadImage")});
 document.getElementById("uploadBlue").addEventListener('click', function () { loadFiles("bluePicker", blueSrcs, "uploadBlue") });
 document.getElementById("uploadGreen").addEventListener('click', function () { loadFiles("greenPicker", greenSrcs, "uploadGreen")});
-
 document.getElementById("confirmButton").addEventListener('click', confirmUploadDirectories, false);
 
+// set the help text
+document.getElementById("helpMessage")
+
+
 // change the visibility of the green image overlay when click the correct button
+// SESSION TO DISPLAY THE IMAGES
 
-document.getElementById("hideButton").addEventListener("click", changeVisibility);
+//document.getElementById("hideButton").addEventListener("click", changeVisibility);
 
-
+/*
 // use the slider to change the opacity
 let opacitySlider = document.getElementById("setOpacity");
 // let contrastSlider = document.getElementById("setContrast");
@@ -241,7 +227,7 @@ opacitySlider.oninput = function(){
     greenOverlay.style.opacity = this.value / 100;
     blueOverlay.style.opacity = this.value / 100;
 }
-
+*/
 /*
 contrastSlider.oninput = function(){
 
@@ -283,9 +269,9 @@ document.getElementById("resetButton").addEventListener("click", function(){
 */
 
 // add the callback for the preference
-document.getElementById("betterBlue").addEventListener("click", function(){ setChoice(BLUE_BETTER) });
-document.getElementById("betterGreen").addEventListener("click", function () { setChoice(GREEN_BETTER) });
-document.getElementById("noneBetter").addEventListener("click", function () { setChoice(NO_BETTER) });
+//document.getElementById("betterBlue").addEventListener("click", function(){ setChoice(BLUE_BETTER) });
+//document.getElementById("betterGreen").addEventListener("click", function () { setChoice(GREEN_BETTER) });
+//document.getElementById("noneBetter").addEventListener("click", function () { setChoice(NO_BETTER) });
 
 // Add keybord shortcut
 
@@ -303,4 +289,4 @@ document.addEventListener('keydown', (event) => {
     }
 }, false);
 
-document.getElementById("downloadButton").addEventListener("click", downloadResults);
+//document.getElementById("downloadButton").addEventListener("click", downloadResults);

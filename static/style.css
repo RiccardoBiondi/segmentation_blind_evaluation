@@ -10,18 +10,19 @@ html {
 
 body {
     margin: 5px;
-    transition: baground-color 0.5s;
+    background-color: black;
 }
 
 /*Main Container*/
 
 
-.initial_page {
+.main_page {
     flex-direction: column;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     padding-top: 5%;
     padding-bottom: 5%;
+    padding-left: 5%;
     background-color: black;
     position: absolute;
     top: 0%;
@@ -29,7 +30,7 @@ body {
 }
 
 
-.initial_page button{
+.main_page button{
     width: 50%;
     height: 40%;
     min-width: 200px;
@@ -40,43 +41,28 @@ body {
 }
 
 
-/*Now the style for the evaluation page*/
 
-.evaluation_page {
-        width: 100%;
-        height: 100%;
-        padding-top: 5%;
-        padding-bottom: 5%;
-        background-color: black;
-        position: absolute;
-        top: 0%;
-        left: 0%;
-}
+.column {
+        position: relative;
+	    flex: 30%;
+	    padding: 5px;
+	}
 
 
-.evaluation_page .image_wrapper{
 
-    display: table-row;
-    position: absolute;
-    width: 50%;
-    height: 75%;
-}
+.container {
+	    display: flex;
+	}
 
-
-.evaluation_page .image_wrapper .image_container {
-    display: table-cell;
-}
-.evaluation_page .image_wrapper .image_container img {
-
-    position: absolute;
-}
 
 /*Help Icon Style*/
 .help{
     display: inline-block;
     position: absolute;
-    width: 5%;
-    height: 3%;
+    min-width: 40px;
+    min-height: 40px;
+    width: auto;
+    height: auto;
     margin: 0 auto;
     top: 5%;
     left: 3%;
@@ -94,24 +80,24 @@ body {
 
 .help .helpmessage {
     visibility: hidden;
-    width: 250px;
-    background-color: #333;
-    color: #fff;
-    background-color: aquamarine;
+    min-width: 250px;
+    background-color: #ccc;
     text-align: left;
     border-radius: 6px;
     padding: 5px 0;
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
-    top: 5%;
+    top: 4%;
     left: 3%;
 }
 
 
-.help .helpmessage:hover{
+.help:hover .helpmessage{
     visibility: visible;
 }
+
+/**/
 
 
 /* Color styles: difine the colors and their hoover */
@@ -137,95 +123,4 @@ body {
 
 .yellow:hover{
     background-color: rgba(240, 250, 60, 1);;
-}
-
-
-/*Now Store the old Icons to provide a working version wile refactoring the code in 
-teh dev branch*/
-
-.container {
-    position: relative;
-    background-color: #111;
-    /* Black*/
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 80%;
-    background-color: black;
-    border: 1px solid #000;
-    color: white;
-    transition: 0.5s;
-}
-
-.main_image {
-    position: absolute;
-    display: block;
-    top: 75px;
-    left: 150px;
-}
-
-.overlay_image {
-    position: absolute;
-    display: block;
-    top: 75px;
-    left: 150px;
-    z-index: 1;
-}
-
-.hide_button {
-    position: absolute;
-    top: 600px;
-    left: 150px;
-    width: 512px;
-    height: 50px;
-    font-size: 25px;
-}
-
-.upload_buttons {
-    position: absolute;
-    left: 25px;
-    width: 768px;
-    height: 128px;
-    font-size: 50px;
-}
-
-.slider {
-    position: absolute;
-    top: 575px;
-    left: 25px;
-    width: 512px;
-}
-
-/* Upper grid of images */
-div.scrollmenu {
-    background-color: #333;
-    overflow: auto;
-    white-space: nowrap;
-}
-
-/* Style the images inside the grid */
-div.scrollmenu img {
-    opacity: 0.8;
-    cursor: pointer;
-}
-
-div.scrollmenu img:hover {
-    opacity: 1;
-}
-
-/* Next & previous buttons */
-.prev,
-.next {
-    cursor: pointer;
-    position: absolute;
-    top: 40%;
-    width: auto;
-    padding: 16px;
-    margin-top: -50px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
 }
