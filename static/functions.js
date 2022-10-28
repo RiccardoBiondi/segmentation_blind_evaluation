@@ -48,13 +48,13 @@ function changeVisibility() {
         greenLabel.style.visibility = "visible"
         blueLabel.style.visibility = "visible"
 
-        button.innerHTML = 'Hide Label';
+        button.innerHTML = 'Hide';
     }
 
     else {
         greenLabel.style.visibility = "hidden";
         blueLabel.style.visibility = "hidden";
-        button.innerHTML = 'Reveal Label';
+        button.innerHTML = 'Reveal';
     }
 };
 
@@ -67,7 +67,7 @@ function setChoice(responseId){
     // Update the global dictionary
     responses[filename + currentSlideIndex] = responseId;
 
-    //document.getElementById("evaluationCounter").innerHTML = "Evaluated: " + Object.keys(responses).length + "/" + imageSrcs.length;
+    document.getElementById("evaluationCounter").innerHTML = "Evaluated: " + Object.keys(responses).length + "/" + imageSrcs.length;
     highlightPreference(currentSlideIndex);
 };
 
@@ -80,7 +80,6 @@ function confirmUploadDirectories(){
         alert("Pelase specify all the required directories");
     } else if (imageSrcs.length == blueSrcs.length && imageSrcs.length == greenSrcs.length ){
         // if all directories contains the same number of images you can proceed with the analysis
-
         // hide the upload page and reveal the evaluation one
         document.getElementById("uploadPage").style.display = "none";
         document.getElementById("evaluationPage").style.display = "flex";
@@ -98,7 +97,7 @@ function showImage(src, id){
     /*Function to show an image specifying the src */ 
     let image = document.getElementById(id);
     image.src = './data/' + src;
-    image.parentElement.style.display = "block";
+    //image.parentElement.style.display = "block";
 };
 
 
@@ -116,7 +115,7 @@ function showCurrentSlide(n){
     showImage(blueSrcs[currentSlideIndex], 'blueOverlay');
     highlightPreference(currentSlideIndex);
     // upload the image current
-    //document.getElementById("imageCounter").innerHTML = "Image " + (currentSlideIndex + 1) + "/" + imageSrcs.length;
+    document.getElementById("imageCounter").innerHTML = "Image " + (currentSlideIndex + 1) + "/" + imageSrcs.length;
 }; 
 
 
@@ -137,12 +136,10 @@ function highlightPreference(slideNumber){
     // if you have expressed a preference, this will be hightlighted during the visualization
     if (responses[slideNumber] === BLUE_BETTER){
 
-        console.log(BLUE_BETTER);
         // set the margin of the green image to the default values
         document.getElementById("mainImage").style.boxShadow = "none"
         document.getElementById("mainImageBis").style.boxShadow =  BORDER_HIGHLIGHT
     } else if (responses[slideNumber] === GREEN_BETTER){
-        console.log(GREEN_BETTER);
         // set the margin of the blue image to the default values
         document.getElementById("mainImageBis").style.boxShadow = "none"
         document.getElementById("mainImage").style.boxShadow = BORDER_HIGHLIGHT
@@ -212,13 +209,11 @@ document.getElementById("helpMessage")
 // change the visibility of the green image overlay when click the correct button
 // SESSION TO DISPLAY THE IMAGES
 
-//document.getElementById("hideButton").addEventListener("click", changeVisibility);
 
-/*
+document.getElementById("hideButton").addEventListener("click", changeVisibility);
+
 // use the slider to change the opacity
 let opacitySlider = document.getElementById("setOpacity");
-// let contrastSlider = document.getElementById("setContrast");
-// let brightnessSlider = document.getElementById("setBrightness");
 
 // change the image opacity each time you drag the slider handler
 opacitySlider.oninput = function(){
@@ -227,51 +222,11 @@ opacitySlider.oninput = function(){
     greenOverlay.style.opacity = this.value / 100;
     blueOverlay.style.opacity = this.value / 100;
 }
-*/
-/*
-contrastSlider.oninput = function(){
-
-    img1.style.filter = "contrast(" + this.value + "%) " + "brightness(" + brightnessSlider.value + "%);";
-    img2.style.filter = "contrast(" + this.value + "%) " + "brightness(" + brightnessSlider.value + "%);";
-}
-
-brightnessSlider.oninput = function () {
-
-    img1.style.filter = "contrast(" + contrastSlider.value + "%) " + "brightness(" + this.value + "%);";
-    img2.style.filter = "contrast(" + contrastSlider.value + "%) " + "brightness(" + this.value + "%);";
-
-    console.log(img1.style.filter);
-}
-
-
-document.getElementById("resetButton").addEventListener("click", function(){
-
-    // set all the sliders to the dafault value
-    opacitySlider.value = 100;
-    contrastSlider.value = 100;
-    brightnessSlider.value = 100;
-
-    // set contrast and brightness to 100% each.
-    img1.style.filter = "contrast(" + contrastSlider.value +"%) " + "brightness(" + brightnessSlider.value + "%);";
-    img2.style.filter = "contrast(" + contrastSlider.value + "%) " + "brightness(" + brightnessSlider.value + "%);";
-    // set the opacity to 100% and make the labels visible
-    document.getElementById("greenOverlay").style.opacity = 1;
-    document.getElementById("greenOverlay").style.visibility = "visible";
-
-    document.getElementById("blueOverlay").style.opacity = 1;
-    document.getElementById("blueOverlay").style.visibility = "visible";
-    document.getElementById("hideButton").innerHTML = "Hide Label"
-
-    // set also the slider values to the dafault one
- 
-})
-
-*/
 
 // add the callback for the preference
-//document.getElementById("betterBlue").addEventListener("click", function(){ setChoice(BLUE_BETTER) });
-//document.getElementById("betterGreen").addEventListener("click", function () { setChoice(GREEN_BETTER) });
-//document.getElementById("noneBetter").addEventListener("click", function () { setChoice(NO_BETTER) });
+document.getElementById("betterBlue").addEventListener("click", function(){ setChoice(BLUE_BETTER) });
+document.getElementById("betterGreen").addEventListener("click", function () { setChoice(GREEN_BETTER) });
+document.getElementById("noneBetter").addEventListener("click", function () { setChoice(NO_BETTER) });
 
 // Add keybord shortcut
 
@@ -289,4 +244,4 @@ document.addEventListener('keydown', (event) => {
     }
 }, false);
 
-//document.getElementById("downloadButton").addEventListener("click", downloadResults);
+document.getElementById("downloadButton").addEventListener("click", downloadResults);

@@ -22,7 +22,7 @@
         <!-- File loader part-->
 
         <!-- Hidden downloader of resulting file -->
-        <iframe id="download_iframe" target="_blanck" style="display:none;"></iframe>
+        <iframe id="download_iframe" target="_blanck" style="display: none;"></iframe>
 
         <!--Hidden image picker to upload the resulting files-->
         <input type="file" id="imagePicker" name="fileList" webkitdirectory multiple style="display: none"; />
@@ -59,24 +59,33 @@
         <!--
             Button to choose which image is better
         -->
-            <div class="center container">
+            <div class="container">
                  <div class="column">
-                    <img src="./data/images/D0062_012.png">
+                    <img src="data/images/D0062_012.png" id="mainImage" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1);">
+                    <img src="data/green/D0062_012_green.png" id="greenOverlay" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1);">
                 </div>
                 <div class="column">
-                    <img src="./data/images/D0062_012.png">
+                    <img src="data/images/D0062_012.png" id="mainImageBis" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1);">
+                    <img src="data/blue/D0062_012_blue.png" id="blueOverlay" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1);">
                 </div>
                 <div class="column" style="flex-direction: column;">
-                    <button id="hideButton"> Hide Label </button>
-                    <input type="range" min="0" max="100" id="setOpacity"><input>
+                    
                     <!--Here will be all the required panels to set the options for the image viewer -->
+                    <button id="hideButton"> Hide </button> <br>
+                    <label for="setOpacity" style="color:whitesmoke">Label Opacity:</label>
+                    <input type="range" min="0" max="100" value="100" id="setOpacity"></input><br>
+                    <button id="downloadButton">Download </button> <br>
+                    <span style="color: yellow; font-weight: bold;" id="imageCounter">Image</span> <br>
+                    <span style="color: yellow; font-weight: bold;" id="evaluationCounter">Evaluated</span>
                 </div>
             </div>
+            <div class="container" style="position: absolute; top: 75%">
+                <button id="betterGreen" class="green">Green</button>
+                <button id="noneBetter" class="yellow">None</button>
+                <button id="betterBlue" class="blue">Blue</button>
+                
+ 
 
-            <div class="container">
-                <button id="betterGreen" class="green">Green is Better</button>
-                <button id="noneBetter" class="yellow">None is Better</button>
-                <button id="betterBlue" class="blue">Blue is Better</button>
             </div>
         </div>
 
