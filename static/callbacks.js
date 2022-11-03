@@ -6,6 +6,7 @@
 
 (function (){
     // main variables 
+    let zoomFactor = 1; // default zoom factor: corresponds to no zoom 
     let currentSlideIndex = 0;
     let preferences = {};
 
@@ -25,30 +26,29 @@
         if (n < 0) { currentSlideIndex = imageSrcs.length - 1 };
 
         // now show the images
-        myFunctions.showImage(imageSrcs[currentSlideIndex], 'mainImage');
-        myFunctions.showImage(imageSrcs[currentSlideIndex], 'mainImageBis');
-        myFunctions.showImage(greenSrcs[currentSlideIndex], 'greenOverlay');
-        myFunctions.showImage(blueSrcs[currentSlideIndex], 'blueOverlay');
+        utilities.showImage(imageSrcs[currentSlideIndex], 'mainImage');
+        utilities.showImage(imageSrcs[currentSlideIndex], 'mainImageBis');
+        utilities.showImage(greenSrcs[currentSlideIndex], 'greenOverlay');
+        utilities.showImage(blueSrcs[currentSlideIndex], 'blueOverlay');
         highlightPreference(currentSlideIndex);
         // upload the image current
         document.getElementById("imageCounter").innerHTML = "Image " + (currentSlideIndex + 1) + "/" + imageSrcs.length;
     }; 
 
-    function highlightPreference(slideNumber) {
-
+    function highlightPreference(slideIdentifier) {
         // slide number is the number of the current slice
         // if you have expressed a preference, this will be hightlighted during the visualization
-        if (preferences[slideNumber] === BLUE_BETTER) {
+        if (preferences[slideIdentifier] === BLUE_BETTER) {
 
             // set the margin of the green image to the default values
             document.getElementById("mainImage").style.boxShadow = "none"
             document.getElementById("mainImageBis").style.boxShadow = BORDER_HIGHLIGHT
-        } else if (preferences[slideNumber] === GREEN_BETTER) {
+        } else if (preferences[slideIdentifier] === GREEN_BETTER) {
             // set the margin of the blue image to the default values
             document.getElementById("mainImageBis").style.boxShadow = "none"
             document.getElementById("mainImage").style.boxShadow = BORDER_HIGHLIGHT
 
-        } else if (preferences[slideNumber] === NONE_BETTER) {
+        } else if (preferences[slideIdentifier] === NONE_BETTER) {
             document.getElementById("mainImageBis").style.boxShadow = BORDER_HIGHLIGHT
             document.getElementById("mainImage").style.boxShadow = BORDER_HIGHLIGHT
         }
@@ -74,11 +74,15 @@
     let blueUploadButton = document.getElementById("uploadBlue");
     let greenUploadButton = document.getElementById("uploadGreen");
 
+    let greenOverlay = document.getElementById("greenOverlay");
+    let blueOverlay = document.getElementById("blueOverlay");
 
+    let imageA = document.getElementById('mainImage');
+    let imageB = document.getElementById('mainImageBis');
     // upload the images on click
-    imageUploadButton.addEventListener('click', (event) => { myFunctions.loadFilesOnButtonClick(imageSrcs, imageFilePicker, imageUploadButton) });
-    blueUploadButton.addEventListener('click', (event) => { myFunctions.loadFilesOnButtonClick(blueSrcs, blueFilePicker, blueUploadButton) });
-    greenUploadButton.addEventListener('click', (event) => { myFunctions.loadFilesOnButtonClick(greenSrcs, greenFilePicker, greenUploadButton) });
+    imageUploadButton.addEventListener('click', (event) => { utilities.loadFilesOnButtonClick(imageSrcs, imageFilePicker, imageUploadButton) });
+    blueUploadButton.addEventListener('click', (event) => { utilities.loadFilesOnButtonClick(blueSrcs, blueFilePicker, blueUploadButton) });
+    greenUploadButton.addEventListener('click', (event) => { utilities.loadFilesOnButtonClick(greenSrcs, greenFilePicker, greenUploadButton) });
 
     
     // confirm the selection
@@ -98,8 +102,8 @@
 
     // add button to hide or reveal the segmentation label
     document.getElementById("hideButton").addEventListener("click", (event) => {
-        let message = myFunctions.changeVisibility('greenOverlay');
-        myFunctions.changeVisibility('blueOverlay');
+        let message = utilities.changeVisibility('greenOverlay');
+        utilities.changeVisibility('blueOverlay');
         document.getElementById("hideButton").innerHTML = message;
     });
 
@@ -108,8 +112,7 @@
 
     // change the image opacity each time you drag the slider handler
     document.getElementById("setOpacity").oninput = function () {
-        let greenOverlay = document.getElementById("greenOverlay");
-        let blueOverlay = document.getElementById("blueOverlay");
+
         greenOverlay.style.opacity = this.value / 100;
         blueOverlay.style.opacity = this.value / 100;
     }
@@ -117,21 +120,60 @@
 
     // set the choice
     document.getElementById("betterBlue").addEventListener("click", (evant) => { 
-            myFunctions.setChoice(BLUE_BETTER, currentSlideIndex, preferences);
+            utilities.setChoice(BLUE_BETTER, imageSrcs[currentSlideIndex], preferences);
             document.getElementById("evaluationCounter").innerHTML = "Evaluated: " + Object.keys(preferences).length + "/" + imageSrcs.length;
-            highlightPreference(currentSlideIndex);
+            highlightPreference(imageSrcs[currentSlideIndex]);
          });
     document.getElementById("betterGreen").addEventListener("click", (evant) => {
-        myFunctions.setChoice(GREEN_BETTER, currentSlideIndex, preferences);
+        utilities.setChoice(GREEN_BETTER, imageSrcs[currentSlideIndex], preferences);
         document.getElementById("evaluationCounter").innerHTML = "Evaluated: " + Object.keys(preferences).length + "/" + imageSrcs.length;
-        highlightPreference(currentSlideIndex);
+        highlightPreference(imageSrcs[currentSlideIndex]);
     });
 
     document.getElementById("betterNone").addEventListener("click", (evant) => {
-        myFunctions.setChoice(NONE_BETTER, currentSlideIndex, preferences);
+        utilities.setChoice(NONE_BETTER, imageSrcs[currentSlideIndex], preferences);
         document.getElementById("evaluationCounter").innerHTML = "Evaluated: " + Object.keys(preferences).length + "/" + imageSrcs.length;
-        highlightPreference(currentSlideIndex);
+        highlightPreference(imageSrcs[currentSlideIndex]);
     });
+
+
+
+    // Dowload the results
+    document.getElementById("downloadButton").addEventListener("click", (event) => {
+        utilities.downloadResults(OUTNAME, imageSrcs, preferences);
+    });
+
+    // callbacks for the magnifier lens
+
+    let zoomLensA = document.getElementById('zoomLensA');// get the zoom lens
+    let zoomLensB = document.getElementById('zoomLensB');// get the zoom lens
+
+
+    // display the zoom lens on mouse moving
+    greenOverlay.addEventListener("mousemove", (event) => { utilities.magnify(imageA, greenOverlay, zoomLensA, zoomFactor) }, false);
+    blueOverlay.addEventListener("mousemove", (event) => { utilities.magnify(imageB, blueOverlay, zoomLensB, zoomFactor) }, false);
+
+    // hide and reveal the magnifier
+    document.getElementById('revealZoomLens').addEventListener('click', (event) => {
+
+        let message = utilities.changeVisibility('zoomLensA');
+        utilities.changeVisibility('zoomLensB');
+        utilities.magnify(imageA, greenOverlay, zoomLensA, zoomFactor);
+        utilities.magnify(imageB, blueOverlay, zoomLensB, zoomFactor);
+
+        document.getElementById("revealZoomLens").innerHTML = message + " Lens";
+    }, false);
+
+    // change the zoom factor
+    document.getElementById('zoomLevel').oninput = function () {
+
+        zoomFactor = this.value;
+
+        utilities.magnify(imageA, greenOverlay, zoomLensA, zoomFactor);
+        utilities.magnify(imageB, blueOverlay, zoomLensB, zoomFactor);
+
+    }
+
 
 
     // and now the shortcuts
@@ -147,14 +189,32 @@
                 currentSlideIndex += 1;
                 showCurrentSlide(currentSlideIndex);
                 break;
+            // green selection key
+            case "KeyQ":
+                document.getElementById("betterGreen").click();
+                break;
+            // blue selection key
+            case "KeyE":
+                document.getElementById("betterBlue").click();
+                break;
+            // none selection key
+            case "KeyW":
+                document.getElementById("betterNone").click();
+                break;
+            // hide/reveal label key
+            case "KeyH":
+                document.getElementById("hideButton").click();
+                utilities.magnify(imageA, greenOverlay, zoomLensA, zoomFactor);
+                utilities.magnify(imageB, blueOverlay, zoomLensB, zoomFactor);
+                break;
+
+            // hide/reveal zoom lens key
+            case "KeyZ":
+                document.getElementById("revealZoomLens").click();
+                break;
         }
     }, false);
 
-
-    // Dowload the results
-    document.getElementById("downloadButton").addEventListener("click", (event) => {
-        myFunctions.downloadResults(OUTNAME, imageSrcs, preferences);
-    });
 
 })();
 

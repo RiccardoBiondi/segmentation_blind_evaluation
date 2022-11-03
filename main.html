@@ -55,27 +55,33 @@
                 START THE EVALUATION PAGE
         -------------------------------------------------------------------------------------------------------------------------->
         
+        
         <div class="main_page" id="evaluationPage" style="display: none;">
-    
-        <!--
-            Button to choose which image is better
-        -->
+        <!--Container for the segmentations to display and for the control panel-->
             <div class="container">
                  <div class="column">
-                    <img src="data/images/D0062_012.png" id="mainImage" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1);">
-                    <img src="data/green/D0062_012_green.png" id="greenOverlay" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1);">
+
+                    <div id="zoomLensA" class="img-magnifier-glass" style="visibility: hidden;"></div>
+                    <img src="data/images/D0062_012.png" id="mainImage" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1); ">
+                    <img src="data/green/D0062_012_green.png" id="greenOverlay" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1); visibility: visible;">
                 </div>
                 <div class="column">
+                    <div id="zoomLensB" class="img-magnifier-glass" style="visibility: hidden;"></div>
                     <img src="data/images/D0062_012.png" id="mainImageBis" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1);">
-                    <img src="data/blue/D0062_012_blue.png" id="blueOverlay" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1);">
+                    <img src="data/blue/D0062_012_blue.png" id="blueOverlay" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1); visibility: visible;">
                 </div>
                 <div class="column" style="flex-direction: column;">
                     <!--Here will be all the required panels to set the options for the image viewer -->
                     <button id="hideButton"> Hide </button> <br>
                     <label for="setOpacity" style="color:whitesmoke">Label Opacity:</label>
                     <input type="range" min="0" max="100" value="100" id="setOpacity"></input><br>
-                    <button id="downloadButton">Download </button> <br>
-                    <span style="color: yellow; font-weight: bold;" id="imageCounter">Image</span> <br>
+                    <button id="downloadButton">Download Results</button> <br>
+                    <!--Add the buttons to control the zoom lens: hide/reveal and zoom factor-->
+                    <button id="revealZoomLens">Reveal Zoom</button><br>
+                    <label for="zoomLevel" style="color:whitesmoke">Zoom Level:</label>
+                    <input type="range" min="1" max="10" value="1" id="zoomLevel"></input><br>                      
+                    <!--Useful Indicators-->
+                    <span style="color: yellow; font-weight: bold;" id="imageCounter">Current Image</span> <br>
                     <span style="color: yellow; font-weight: bold;" id="evaluationCounter">Evaluated</span>
                 </div>
             </div>
@@ -83,9 +89,6 @@
                 <button id="betterGreen" class="green">Green</button>
                 <button id="betterNone" class="yellow">None</button>
                 <button id="betterBlue" class="blue">Blue</button>
-                
- 
-
             </div>
         </div>
         </body>
