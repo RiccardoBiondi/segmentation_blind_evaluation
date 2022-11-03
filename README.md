@@ -11,6 +11,7 @@ A simple utility script to evaluate two different segmentation one against the o
 
 ## Usage
 
+
 ### Prepare the data
 
 The first step is data preparation. Inside the local *data* folder, create three subfolders containing the raw images and the two segmentation to evaluate. We will refer to these folders as images, green and blue.
