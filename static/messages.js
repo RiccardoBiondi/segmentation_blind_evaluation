@@ -11,16 +11,15 @@ messages.eng = {
                             Upload the required images:<br>
                                 <ul>
                                     <li><em>images</em>: base images to display</li>
-                                    <li><em>blue</em>: label that will be refered as blue</li>
-                                    <li><em>green</em>: label that will be refered as gren</li>
+                                    <li><em>blue</em>: the label that will be referred to as blue</li>
+                                    <li><em>green</em>: the label that will be referred to as green</li>
                                 </ul>
                             Once you have uploaded all the images, click on <em> Confirm Selection</em> to start the evaluation.`,
     "evaluation help message": `<b>Evaluation</b><br>
-                                For each image, chose if it is better the green image, the blue one or None of them and click to 
-                                the corresponding button.<br>
-                                To navigate trought the images use the left and the right arrows on the keybords.
-                                Once you have finished your evaluation, download the results clicking on the <em>Download</em> button.
-                                
+                                Chose which segmentation is better: the green, the blue or None of them.
+                                Click on the corresponding button to make your choice.<br>
+                                To navigate through the images, use the left and right arrows on the keyboard.<br>
+                                Once you have finished your evaluation, download the results by clicking on the <em>Download</em> button.<br>
                                 <em>Keybord Shortcuts</em>
                                 <ul>
                                     <li>"q" : choose green as image preference</li>
@@ -28,7 +27,5 @@ messages.eng = {
                                     <li>"e" : choose green as image preference</li>
                                     <li>"z" : hide/reveal the zoom lens</li>
                                     <li>"h" : hide/reveal the image labels</li>
-
                                 </ul>`
-
-};
+    };
