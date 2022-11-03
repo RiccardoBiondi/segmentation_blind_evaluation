@@ -17,6 +17,11 @@
     const BORDER_HIGHLIGHT = "0px 0px 10px 10px gold" ;
     const OUTNAME = "responses_" + NOW.toLocaleDateString() + ".csv";
 
+
+    // set the help message text
+    document.getElementById("uploadHelpMessage").innerHTML = messages.eng['upload help message'];
+    document.getElementById("evaluationHelpMessage").innerHTML = messages.eng['evaluation help message'];
+
     // some usefull function wrapping
     function showCurrentSlide(n) {
         /* Function to show the current image to evaluate*/

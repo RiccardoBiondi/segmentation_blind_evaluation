@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
-
+        <script type="text/javascript" defer src="static/messages.js"></script>
         <script type="text/javascript" defer src="static/functions.js"></script>
         <script type="text/javascript" defer src="static/callbacks.js"></script>
         <script type="text/javascript" defer src="static/jquery.js"></script>
@@ -36,12 +36,7 @@
             <!--Help Icon: click will dispay the  help message for the -->
             <div class="help" id="help">
                 <div class="question">?</div>
-                <span class="helpmessage" id="helpMessage">
-                    Upload the required files from the data directory; then confirm the selection. 
-                    Images will be the base images. 
-                    Green and Blue batch must contains the segmentation to match. Notice that the segmentation to evaluate must be mixed trough the 
-                    different batches.
-                </span>
+                <span class="helpmessage" id="uploadHelpMessage"></span>
             </div>
             <!--Place the hidden inputs to pick the files-->
             <button type="button" class="center yellow" id="uploadImage" >Upload Images</button>
@@ -57,6 +52,11 @@
         
         
         <div class="main_page" id="evaluationPage" style="display: none;">
+        <!--Add th help button-->
+            <div class="help" id="help">
+                <div class="question">?</div>
+                <span class="helpmessage" id="evaluationHelpMessage"></span>
+            </div>
         <!--Container for the segmentations to display and for the control panel-->
             <div class="container">
                  <div class="column">
