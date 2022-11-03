@@ -10,7 +10,7 @@ html {
 
 body {
     margin: 5px;
-    background-color: black;
+    background-color: #1c1c1c;
 }
 
 /*Main Container*/
@@ -23,7 +23,7 @@ body {
     padding-top: 5%;
     padding-bottom: 5%;
     padding-left: 5%;
-    background-color: black;
+    background-color: #1c1c1c;
     position: absolute;
     top: 0%;
     left: 0%;
@@ -31,8 +31,8 @@ body {
 
 
 .main_page button{
-    width: 50%;
-    height: 40%;
+    width: 80%;
+    height: 20%;
     min-width: 200px;
     min-height: 50px;
     cursor: pointer;
@@ -54,6 +54,16 @@ body {
 	    display: flex;
 	}
 
+.img-magnifier-glass {
+    position: absolute;
+    z-index: 2;
+    border: 3px solid #000;
+    border-radius: 50%;
+    cursor: none;
+    /*Set the size of the magnifier glass:*/
+    width: 100px;
+    height: 100px;
+}
 
 /*Help Icon Style*/
 .help{
@@ -64,7 +74,7 @@ body {
     width: auto;
     height: auto;
     margin: 0 auto;
-    top: 5%;
+    top: 3%;
     left: 3%;
 }
 

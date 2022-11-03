@@ -6,7 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
+        <script type="text/javascript" defer src="static/messages.js"></script>
         <script type="text/javascript" defer src="static/functions.js"></script>
+        <script type="text/javascript" defer src="static/callbacks.js"></script>
         <script type="text/javascript" defer src="static/jquery.js"></script>
         
         <link rel="stylesheet" href="static/style.css">
@@ -29,66 +31,68 @@
         <input type="file" id="bluePicker" name="fileList" webkitdirectory multiple style="display: none"; />
         <input type="file" id="greenPicker" name="fileList" webkitdirectory multiple style="display: none"; />
 
-        <div class="center main_page" id="uploadPage" style="display: none;">
+        <div class="center main_page" id="uploadPage" style="display: flex;">
 
             <!--Help Icon: click will dispay the  help message for the -->
             <div class="help" id="help">
                 <div class="question">?</div>
-                <span class="helpmessage" id="helpMessage">
-                    Upload the required files from the data directory; then confirm the selection. 
-                    Images will be the base images. 
-                    Green and Blue batch must contains the segmentation to match. Notice that the segmentation to evaluate must be mixed trough the 
-                    different batches.
-                </span>
+                <span class="helpmessage" id="uploadHelpMessage"></span>
             </div>
             <!--Place the hidden inputs to pick the files-->
             <button type="button" class="center yellow" id="uploadImage" >Upload Images</button>
             <button type="button" class="center blue" id="uploadBlue">Upload Blue Batch</button>
             <button type="button" class="center green" id="uploadGreen">Upload Green Batch</button>
             <!--Button to confirm the selection-->
-            <button type="button" class="center" id="confirmButton" onclick="confirmUploadDirectories()">Confirm Selection</button>
+            <button type="button" class="center" id="confirmButton" >Confirm Selection</button>
         </div>
 
         <!-------------------------------------------------------------------------------------------------------------------------
                 START THE EVALUATION PAGE
         -------------------------------------------------------------------------------------------------------------------------->
-
-        <div class="main_page" id="evaluationPage" style="display: flex;">
-
-    
-        <!--
-            Button to choose which image is better
-        -->
+        
+        
+        <div class="main_page" id="evaluationPage" style="display: none;">
+        <!--Add th help button-->
+            <div class="help" id="help">
+                <div class="question">?</div>
+                <span class="helpmessage" id="evaluationHelpMessage"></span>
+            </div>
+        <!--Container for the segmentations to display and for the control panel-->
             <div class="container">
                  <div class="column">
-                    <img src="data/images/D0062_012.png" id="mainImage" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1);">
-                    <img src="data/green/D0062_012_green.png" id="greenOverlay" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1);">
+
+                    <div id="zoomLensA" class="img-magnifier-glass" style="visibility: hidden;"></div>
+                    <img id="mainImage" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1); ">
+                    <img id="greenOverlay" style="position: absolute; top: 0px; left: 0px; border: 10px solid rgba(0, 200, 100, 1); visibility: visible;">
                 </div>
                 <div class="column">
-                    <img src="data/images/D0062_012.png" id="mainImageBis" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1);">
-                    <img src="data/blue/D0062_012_blue.png" id="blueOverlay" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1);">
+                    <div id="zoomLensB" class="img-magnifier-glass" style="visibility: hidden;"></div>
+                    <img id="mainImageBis" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1);">
+                    <img id="blueOverlay" style="position:absolute; top:0px; left:0px; border: 10px solid rgba(0, 100, 200, 1); visibility: visible;">
                 </div>
                 <div class="column" style="flex-direction: column;">
-                    
                     <!--Here will be all the required panels to set the options for the image viewer -->
                     <button id="hideButton"> Hide </button> <br>
                     <label for="setOpacity" style="color:whitesmoke">Label Opacity:</label>
                     <input type="range" min="0" max="100" value="100" id="setOpacity"></input><br>
-                    <button id="downloadButton">Download </button> <br>
-                    <span style="color: yellow; font-weight: bold;" id="imageCounter">Image</span> <br>
-                    <span style="color: yellow; font-weight: bold;" id="evaluationCounter">Evaluated</span>
+
+                    <!--Add the buttons to control the zoom lens: hide/reveal and zoom factor-->
+                    <button id="revealZoomLens">Reveal Zoom</button><br>
+                    <label for="zoomLevel" style="color:whitesmoke">Magnification Factor:</label>
+                    <input type="range" min="1" max="10" value="1" id="zoomLevel"></input><br>                      
+                    <!--Useful Indicators-->
+                    <span style="color: yellow; font-weight: bold;" id="imageCounter">Current Image</span> <br>
+                    <span style="color: yellow; font-weight: bold;" id="evaluationCounter">Evaluated</span> <br>
+
+                    <button id="downloadButton">Download</button>
                 </div>
             </div>
             <div class="container" style="position: absolute; top: 75%">
                 <button id="betterGreen" class="green">Green</button>
-                <button id="noneBetter" class="yellow">None</button>
+                <button id="betterNone" class="yellow">None</button>
                 <button id="betterBlue" class="blue">Blue</button>
-                
- 
-
             </div>
         </div>
-
-    </body>
+        </body>
 
 </html>
