@@ -110,6 +110,8 @@
         let message = utilities.changeVisibility('greenOverlay');
         utilities.changeVisibility('blueOverlay');
         document.getElementById("hideButton").innerHTML = message;
+        utilities.magnify(imageA, greenOverlay, zoomLensA, zoomFactor);
+        utilities.magnify(imageB, blueOverlay, zoomLensB, zoomFactor);
     });
 
     // add the function to control the overlays opacity

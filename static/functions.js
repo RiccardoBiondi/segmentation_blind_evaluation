@@ -105,8 +105,9 @@ utilities.magnify = function (image, overlay, glass, zoom) {
 
     /* Create magnifier glass: */
     /*Reveal the glass*/
-    overlay.parentElement.insertBefore(glass, image);
+    image.parentElement.insertBefore(glass, image);
     overlay.parentElement.insertBefore(glass, overlay);
+
     //image.parentElement.insertBefore(glass, overlay);
     /* Set background properties for the magnifier glass: */
     glass.style.backgroundImage = "url('" + overlay.src + "'), url('" + image.src + "')";
