@@ -29,3 +29,13 @@ messages.eng = {
                                     <li>"h" : hide/reveal the image labels</li>
                                 </ul>`
     };
+
+
+messages.ita = {
+    "upload help message": `<b>Pagina di Caricamento</b><br>
+                            Carica le immagini da confrontare:<br>
+                                <ul>
+                                    <li><em>immagini</em>: immagini di base </li>
+                                </ul>`,
+    "evaluation help message": `<b>Valutazione</b><br>`
+};

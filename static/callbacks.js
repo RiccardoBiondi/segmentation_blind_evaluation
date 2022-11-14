@@ -185,6 +185,7 @@
 
     // and now the shortcuts
     document.addEventListener('keydown', (event) => {
+
         switch (event.code) {
             // If left arrow is pressed
             case "ArrowLeft":

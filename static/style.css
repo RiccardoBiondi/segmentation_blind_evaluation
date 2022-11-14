@@ -120,7 +120,7 @@ body {
 }
 
 .green {
-    background-color: rgba(0, 200, 100, 1);
+    background-color: rgba(10, 145, 46, 1);
 }
 
 .green:hover {
@@ -128,7 +128,7 @@ body {
 }
 
 .yellow{
-    background-color: rgba(190, 200, 50, 1);
+    background-color: rgba(224, 202, 33, 1);
 }
 
 .yellow:hover{
