@@ -35,13 +35,13 @@
         utilities.showImage(imageSrcs[currentSlideIndex], 'mainImageBis');
         utilities.showImage(greenSrcs[currentSlideIndex], 'greenOverlay');
         utilities.showImage(blueSrcs[currentSlideIndex], 'blueOverlay');
-        highlightPreference(currentSlideIndex);
+        highlightPreference(imageSrcs[currentSlideIndex]);
         // upload the image current
         document.getElementById("imageCounter").innerHTML = "Image " + (currentSlideIndex + 1) + "/" + imageSrcs.length;
     }; 
 
     function highlightPreference(slideIdentifier) {
-        // slide number is the number of the current slice
+        // slideIdentifier is the ientifier of the soice to highlight
         // if you have expressed a preference, this will be hightlighted during the visualization
         if (preferences[slideIdentifier] === BLUE_BETTER) {
 
